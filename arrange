@@ -1,0 +1,24 @@
+#!/bin/bash
+
+dir="${1:-./}"
+
+echo "Directory to arrange: $dir"
+cd $dir
+
+# directory, where lettered folders are located
+arrangedir="."
+# directory, where unarranged files are located
+filesdir="./files"
+
+for letter in {a..z} # iterate through a->z
+do
+    # Use glob to capture filenames that start with
+    # $letter or the uppercase of $letter, and iterate
+    # through them:
+    for file in "$filesdir/[$letter${letter^^}]*" 
+    do
+        # Move the file from the $filesdir
+        # to the directory with the current letter
+        mv $file "$arrangedir/$letter"
+    done
+done
